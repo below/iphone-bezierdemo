@@ -59,29 +59,14 @@
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
 	
-	UITouch *touch = [touches anyObject];
-	
-	// If the touch was in the placardView, move the placardView to its location
-	if ([[touch view] isKindOfClass:[BDPointView self]]) {
-		CGPoint location = [touch locationInView:self];
-		[touch view].center = location;	
-		[self setNeedsDisplay];
-		return;
+	for (UITouch * touch in touches)
+	{
+		if ([[touch view] isKindOfClass:[BDPointView self]]) {
+			CGPoint location = [touch locationInView:self];
+			[touch view].center = location;	
+			[self setNeedsDisplay];
+			return;
+		}
 	}
 }
-
-
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-	
-	UITouch *touch = [touches anyObject];
-	
-	// If the touch was in the placardView, bounce it back to the center
-	if ([[touch view] isKindOfClass:[BDPointView self]]) {
-		// Disable user interaction so subsequent touches don't interfere with animation
-		//		self.userInteractionEnabled = NO;
-		//		[self animatePlacardViewToCenter];
-		return;
-	}		
-}
-
 @end
